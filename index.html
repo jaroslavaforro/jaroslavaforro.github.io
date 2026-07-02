@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaroslava Forro Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header>
+<h1>Jaroslava Forro Photography</h1>
+<p>Professional Portrait & Lifestyle Photographer</p>
+<nav>
+<a href="index.html">Home</a>
+<a href="#gallery">Gallery</a>
+<a href="#reviews">Reviews</a>
+<a href="admin.html">Admin</a>
+</nav>
+</header>
+
+<main>
+<section class="hero">
+<div class="container">
+<h2>Welcome</h2>
+<p>
+Professional photography capturing beautiful moments, portraits, family sessions and special events.
+</p>
+</div>
+</section>
+
+<section id="gallery" class="container">
+<h2 class="page-title">Gallery</h2>
+<div id="galleryGrid" class="gallery"></div>
+</section>
+
+<section id="reviews" class="container">
+<section class="card">
+<h2>Leave a Review</h2>
+<form id="publicReviewForm">
+<input id="name" placeholder="Your Name" required>
+<select id="rating">
+<option value="★★★★★">★★★★★</option>
+<option value="★★★★☆">★★★★☆</option>
+<option value="★★★☆☆">★★★☆☆</option>
+<option value="★★☆☆☆">★★☆☆☆</option>
+<option value="★☆☆☆☆">★☆☆☆☆</option>
+</select>
+<textarea id="message" placeholder="Write your review..." required></textarea>
+<button type="submit">Submit Review</button>
+</form>
+</section>
+
+<h2 class="page-title">Client Reviews</h2>
+<div id="reviewsList" class="reviews-grid"></div>
+</section>
+
+<section class="container contact">
+<h2 class="page-title">Contact</h2>
+<p>Email: info@jaroslavaforro.com</p>
+</section>
+</main>
+
+<div id="lightbox" class="lightbox">
+<button class="close" type="button" onclick="closeImage()">×</button>
+<img id="lightboxImage" alt="Selected gallery photograph">
+<button id="lightboxDownload" class="lightbox-download" type="button" onclick="downloadPhoto(currentLightboxIndex)">Download</button>
+</div>
+
+<footer>
+© 2026 Jaroslava Forro Photography
+</footer>
+
+<script src="js/config.js?v=5"></script>
+<script src="js/script.js?v=5"></script>
+<script>
+displayGallery();
+displayPublicReviews();
+
+document.getElementById("publicReviewForm").addEventListener("submit", function (event) {
+  submitPublicReview(event);
+});
+</script>
+</body>
+</html>

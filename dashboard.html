@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | Jaroslava Forro Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<script>
+if (sessionStorage.getItem("admin") !== "true") {
+  window.location.href = "admin.html";
+}
+</script>
+
+<button class="logout" type="button" onclick="logout()">Logout</button>
+
+<header>
+<h1>Jaroslava Forro Photography</h1>
+<p>Admin Dashboard</p>
+<nav>
+<a href="index.html">Home</a>
+<a href="gallery.html">Gallery</a>
+<a href="reviews.html">Reviews</a>
+</nav>
+</header>
+
+<main class="container">
+<div class="dashboard-grid">
+<section class="card">
+<h2>Upload Photo</h2>
+<form id="photoForm" onsubmit="addPhoto(event)">
+<input id="photoName" type="text" placeholder="Photo name" required>
+<textarea id="photoCaption" placeholder="Caption" required></textarea>
+<input type="file" id="photoImage" accept="image/*" required>
+<button type="submit">Upload Photo</button>
+</form>
+</section>
+
+<section class="card">
+<h2>Gallery Manager</h2>
+<div id="galleryList"></div>
+</section>
+
+<section class="card">
+<h2>Add Review</h2>
+<form id="reviewForm" onsubmit="addReview(event)">
+<input id="reviewName" type="text" placeholder="Client name" required>
+<select id="reviewRating">
+<option value="★★★★★">★★★★★</option>
+<option value="★★★★☆">★★★★☆</option>
+<option value="★★★☆☆">★★★☆☆</option>
+<option value="★★☆☆☆">★★☆☆☆</option>
+<option value="★☆☆☆☆">★☆☆☆☆</option>
+</select>
+<textarea id="reviewMessage" placeholder="Review" required></textarea>
+<button type="submit">Add Review</button>
+</form>
+</section>
+
+<section class="card">
+<h2>Reviews Manager</h2>
+<div id="reviewList"></div>
+</section>
+</div>
+</main>
+
+<script src="js/config.js?v=5"></script>
+<script src="js/script.js?v=5"></script>
+</body>
+</html>

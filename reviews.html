@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews | Jaroslava Forro Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<header>
+<h1>Jaroslava Forro Photography</h1>
+<p>Client Reviews</p>
+<nav>
+<a href="index.html">Home</a>
+<a href="index.html#gallery">Gallery</a>
+<a href="reviews.html">Reviews</a>
+<a href="admin.html">Admin</a>
+</nav>
+</header>
+
+<main class="container">
+<section class="card">
+<h2>Leave a Review</h2>
+<form id="publicReviewForm">
+<input id="name" placeholder="Your Name" required>
+<select id="rating">
+<option value="★★★★★">★★★★★</option>
+<option value="★★★★☆">★★★★☆</option>
+<option value="★★★☆☆">★★★☆☆</option>
+<option value="★★☆☆☆">★★☆☆☆</option>
+<option value="★☆☆☆☆">★☆☆☆☆</option>
+</select>
+<textarea id="message" placeholder="Write your review..." required></textarea>
+<button type="submit">Submit Review</button>
+</form>
+</section>
+
+<h2 class="page-title">Reviews</h2>
+<div id="reviewsList" class="reviews-grid"></div>
+</main>
+
+<script src="js/config.js?v=5"></script>
+<script src="js/script.js?v=5"></script>
+<script>
+displayPublicReviews();
+
+document.getElementById("publicReviewForm").addEventListener("submit", function (event) {
+  submitPublicReview(event);
+});
+</script>
+</body>
+</html>

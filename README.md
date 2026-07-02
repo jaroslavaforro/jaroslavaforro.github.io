@@ -1,2 +1,2 @@
-# jaroslavaforro.github.io
-Jaroslava Forro Photography
+# jaroslavaforro
+Photography Portfolio Website
