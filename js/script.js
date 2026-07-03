@@ -1,7 +1,10 @@
 const PASSWORD = "Jaroslava2025";
 const MANTLE_BASE = `https://mantledb.sh/v2/${STORAGE_CONFIG.mantleNamespace}`;
 const MANTLE_KEY = STORAGE_CONFIG.mantleKey;
-const MAX_IMAGE_BYTES = 45000;
+const MAX_IMAGE_BYTES = 58000;
+const MAX_STORED_PHOTO_BYTES = 64000;
+const GALLERY_INITIAL_COUNT = 3;
+const GALLERY_BATCH_SIZE = 10;
 
 const DEFAULT_CONTACT = {
   email: "info@jaroslavaforro.com",
@@ -12,6 +15,8 @@ let photosCache = [];
 let reviewsCache = [];
 let contactCache = { ...DEFAULT_CONTACT };
 let currentLightboxIndex = null;
+let galleryVisibleCount = GALLERY_INITIAL_COUNT;
+let preferredImageMime = "image/jpeg";
 
 function isAdmin() {
   return sessionStorage.getItem("admin") === "true";
@@ -80,7 +85,23 @@ function dataUrlByteSize(dataUrl) {
   return Math.ceil((base64.length * 3) / 4);
 }
 
-function resizeToDataUrl(file, maxSize, quality) {
+function storedPhotoPayloadSize(dataUrl) {
+  return JSON.stringify({ image: dataUrl }).length;
+}
+
+function detectPreferredImageMime() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 1;
+  canvas.height = 1;
+
+  if (canvas.toDataURL("image/webp").startsWith("data:image/webp")) {
+    return "image/webp";
+  }
+
+  return "image/jpeg";
+}
+
+function resizeToDataUrl(file, maxSize, quality, mimeType = preferredImageMime) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -106,8 +127,10 @@ function resizeToDataUrl(file, maxSize, quality) {
         canvas.height = height;
 
         const context = canvas.getContext("2d");
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
         context.drawImage(image, 0, 0, width, height);
-        resolve(canvas.toDataURL("image/jpeg", quality));
+        resolve(canvas.toDataURL(mimeType, quality));
       };
 
       image.onerror = () => reject(new Error("Nepodarilo sa načítať súbor s obrázkom."));
@@ -120,18 +143,33 @@ function resizeToDataUrl(file, maxSize, quality) {
 }
 
 async function compressImage(file) {
-  let quality = 0.8;
-  let maxSize = 1000;
+  let maxSize = 1600;
 
-  while (quality >= 0.35) {
-    const dataUrl = await resizeToDataUrl(file, maxSize, quality);
+  while (maxSize >= 900) {
+    let low = 0.55;
+    let high = 0.95;
+    let best = null;
 
-    if (dataUrlByteSize(dataUrl) <= MAX_IMAGE_BYTES) {
-      return dataUrl;
+    while (high - low > 0.025) {
+      const quality = (low + high) / 2;
+      const dataUrl = await resizeToDataUrl(file, maxSize, quality);
+
+      if (
+        dataUrlByteSize(dataUrl) <= MAX_IMAGE_BYTES &&
+        storedPhotoPayloadSize(dataUrl) <= MAX_STORED_PHOTO_BYTES
+      ) {
+        best = dataUrl;
+        low = quality;
+      } else {
+        high = quality;
+      }
     }
 
-    quality -= 0.08;
-    maxSize -= 100;
+    if (best) {
+      return best;
+    }
+
+    maxSize -= 120;
   }
 
   throw new Error("Obrázok je príliš veľký. Vyberte menšiu fotografiu.");
@@ -387,11 +425,18 @@ async function displayDashboardPhotos() {
   `).join("");
 }
 
-async function displayGallery() {
+async function displayGallery(keepVisibleCount = false) {
   const gallery = document.getElementById("galleryGrid") || document.getElementById("gallery");
   if (!gallery) return;
 
+  const paginate = gallery.id === "galleryGrid" || gallery.id === "gallery";
+
+  if (!keepVisibleCount) {
+    galleryVisibleCount = GALLERY_INITIAL_COUNT;
+  }
+
   gallery.innerHTML = '<div class="empty">Načítava sa galéria...</div>';
+  removeGalleryMoreButton(gallery);
 
   await loadPhotos();
   const photos = getPhotos();
@@ -401,7 +446,9 @@ async function displayGallery() {
     return;
   }
 
-  gallery.innerHTML = photos.map((photo, index) => `
+  const visibleCount = paginate ? Math.min(galleryVisibleCount, photos.length) : photos.length;
+
+  gallery.innerHTML = photos.slice(0, visibleCount).map((photo, index) => `
     <article class="photo-card">
       <img src="${photo.image}" alt="${escapeHtml(photo.name)}" onclick="openImage(${index})">
       <div class="photo-info">
@@ -410,6 +457,38 @@ async function displayGallery() {
       </div>
     </article>
   `).join("");
+
+  if (paginate && visibleCount < photos.length) {
+    renderGalleryMoreButton(gallery, photos.length - visibleCount);
+  }
+}
+
+function removeGalleryMoreButton(gallery) {
+  const existing = gallery.parentElement.querySelector(".gallery-more-wrap");
+  if (existing) {
+    existing.remove();
+  }
+}
+
+function renderGalleryMoreButton(gallery, remainingCount) {
+  const batchCount = Math.min(GALLERY_BATCH_SIZE, remainingCount);
+  const wrap = document.createElement("div");
+  wrap.className = "gallery-more-wrap";
+
+  wrap.innerHTML = `
+    <button type="button" class="gallery-more-btn" onclick="loadMoreGallery()">
+      <span class="gallery-more-eyebrow">Portfólio</span>
+      <span class="gallery-more-label">Zobraziť viac</span>
+      <span class="gallery-more-count">+${batchCount} ${batchCount === 1 ? "fotografia" : batchCount < 5 ? "fotografie" : "fotografií"}</span>
+    </button>
+  `;
+
+  gallery.after(wrap);
+}
+
+function loadMoreGallery() {
+  galleryVisibleCount += GALLERY_BATCH_SIZE;
+  displayGallery(true);
 }
 
 function openImage(indexOrSrc) {
@@ -563,6 +642,8 @@ async function displayDashboardReviews() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  preferredImageMime = detectPreferredImageMime();
+
   document.querySelectorAll(".download-button, .lightbox-download, #lightboxDownload").forEach(function (button) {
     button.remove();
   });

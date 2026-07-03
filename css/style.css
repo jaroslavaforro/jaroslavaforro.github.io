@@ -358,6 +358,57 @@ select:focus {
     border: 1px dashed var(--border-strong);
 }
 
+.gallery-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.gallery-more-btn {
+    width: min(100%, 520px);
+    padding: 28px 32px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    background:
+        linear-gradient(135deg, rgba(201, 169, 110, 0.12), rgba(255, 255, 255, 0.03)),
+        var(--surface);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow-soft);
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+.gallery-more-btn:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+}
+
+.gallery-more-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.gallery-more-label {
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.gallery-more-count {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
 /* Reviews */
 
 .review {
