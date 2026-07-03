@@ -629,6 +629,8 @@ async function deleteReview(index) {
 }
 
 async function saveReviewReply(index) {
+  if (!isAdmin()) return;
+
   const textarea = document.getElementById(`review-reply-${index}`);
   if (!textarea) return;
 
@@ -641,13 +643,14 @@ async function saveReviewReply(index) {
       saveButton.textContent = "Ukladá sa...";
     }
 
+    await loadReviews();
     const reviews = [...getReviews()];
     if (!reviews[index]) return;
 
     reviews[index] = { ...reviews[index], reply };
     await saveReviews(reviews);
     await displayDashboardReviews();
-    alert("Odpoveď bola uložená.");
+    alert("Odpoveď bola uložená a zobrazí sa na webe.");
   } catch (error) {
     alert(error.message || "Nepodarilo sa uložiť odpoveď.");
   } finally {
@@ -671,7 +674,7 @@ async function displayDashboardReviews() {
   }
 
   reviewList.innerHTML = reviews.map((review, index) => `
-    <div class="review-item review-item-admin">
+    <div class="review-item review-item-admin" data-review-index="${index}">
       <div class="review-item-body">
         <strong>${escapeHtml(review.name)}</strong>
         <br>
@@ -683,7 +686,7 @@ async function displayDashboardReviews() {
         <label for="review-reply-${index}">Odpoveď na recenziu</label>
         <textarea id="review-reply-${index}" placeholder="Napíšte odpoveď pre zákazníka..."></textarea>
         <div class="review-item-actions">
-          <button class="save-reply-button" type="button" onclick="saveReviewReply(${index})">Uložiť odpoveď</button>
+          <button class="save-reply-button" type="button" data-action="save-reply">Uložiť odpoveď</button>
           <button class="delete-button" type="button" onclick="deleteReview(${index})">Odstrániť</button>
         </div>
       </div>
