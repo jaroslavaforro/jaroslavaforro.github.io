@@ -9,31 +9,40 @@
 /* Body */
 
 body{
-    background:#faf6f1;
-    color:#4a3f35;
+    min-height:100vh;
+    color:#3f342c;
     line-height:1.7;
     font-family:"Nunito", Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(255, 214, 190, 0.55), transparent 28%),
+        radial-gradient(circle at top right, rgba(255, 236, 210, 0.7), transparent 32%),
+        radial-gradient(circle at bottom left, rgba(214, 196, 255, 0.28), transparent 30%),
+        linear-gradient(160deg, #f7efe6 0%, #efe2d4 45%, #e7d7c8 100%);
+    background-attachment:fixed;
 }
 
 /* Header */
 
 header{
-    background:#f0e8de;
+    background:rgba(255, 255, 255, 0.28);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
     padding:28px 20px;
     text-align:center;
-    border-bottom:2px solid #d4c4b0;
+    border-bottom:1px solid rgba(255, 255, 255, 0.45);
+    box-shadow:0 8px 32px rgba(92, 74, 58, 0.08);
 }
 
 header h1{
     font-family:"Lora", Georgia, serif;
     font-size:38px;
     margin-bottom:8px;
-    color:#5c4a3a;
+    color:#4f3f33;
     font-weight:600;
 }
 
 header p{
-    color:#7a6b5d;
+    color:#6f5f52;
 }
 
 /* Navigation */
@@ -43,18 +52,20 @@ nav{
 }
 
 nav a{
-    color:#5c4a3a;
+    color:#4f3f33;
     text-decoration:none;
     margin:0 14px;
     font-weight:600;
     transition:.25s;
-    padding:6px 12px;
+    padding:8px 14px;
     border-radius:20px;
+    border:1px solid transparent;
 }
 
 nav a:hover{
-    color:#c4886b;
-    background:rgba(196,136,107,.12);
+    color:#9a5f45;
+    background:rgba(255, 255, 255, 0.35);
+    border-color:rgba(255, 255, 255, 0.55);
 }
 
 nav a:focus,
@@ -62,7 +73,7 @@ button:focus,
 input:focus,
 textarea:focus,
 select:focus{
-    outline:2px solid #c4886b;
+    outline:2px solid rgba(196, 136, 107, 0.8);
     outline-offset:3px;
 }
 
@@ -74,24 +85,15 @@ select:focus{
     margin:40px auto;
 }
 
-.hero{
-    background:linear-gradient(160deg,#f5ebe0,#ede0d4);
-    text-align:center;
-    padding:70px 0;
-    border-bottom:1px solid #e8ddd0;
-}
-
-.hero h2,
 .page-title{
     font-family:"Lora", Georgia, serif;
-    color:#5c4a3a;
+    color:#4f3f33;
     text-align:center;
     margin-bottom:22px;
     font-size:32px;
     font-weight:600;
 }
 
-.hero p,
 .contact p{
     max-width:680px;
     margin:0 auto;
@@ -100,12 +102,22 @@ select:focus{
     font-size:17px;
 }
 
+.contact-info{
+    background:rgba(255, 255, 255, 0.24);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid rgba(255, 255, 255, 0.45);
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 10px 30px rgba(92, 74, 58, 0.08);
+}
+
 .contact-info p{
     margin-bottom:10px;
 }
 
 .contact-info a{
-    color:#a66b4f;
+    color:#9a5f45;
     text-decoration:none;
 }
 
@@ -121,33 +133,37 @@ select:focus{
 
 .button-link{
     display:inline-block;
-    background:#c4886b;
+    background:rgba(196, 136, 107, 0.88);
     color:#fff;
     padding:12px 24px;
     border-radius:24px;
     text-decoration:none;
     font-weight:600;
     transition:.25s;
+    border:1px solid rgba(255, 255, 255, 0.35);
+    box-shadow:0 8px 24px rgba(196, 136, 107, 0.22);
 }
 
 .button-link:hover{
-    background:#b0775c;
+    background:rgba(176, 119, 92, 0.95);
 }
 
 /* Cards */
 
 .card{
-    background:#fff;
-    border-radius:16px;
+    background:rgba(255, 255, 255, 0.28);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border-radius:20px;
     padding:28px;
     margin-bottom:30px;
-    box-shadow:0 4px 20px rgba(92,74,58,.08);
-    border:1px solid #ede5db;
+    box-shadow:0 12px 32px rgba(92, 74, 58, 0.1);
+    border:1px solid rgba(255, 255, 255, 0.45);
 }
 
 .card h2{
     font-family:"Lora", Georgia, serif;
-    color:#5c4a3a;
+    color:#4f3f33;
     margin-bottom:18px;
     font-size:24px;
 }
@@ -174,17 +190,19 @@ select:focus{
 }
 
 .photo-card{
-    background:#fff;
-    border-radius:16px;
+    background:rgba(255, 255, 255, 0.24);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-radius:20px;
     overflow:hidden;
-    box-shadow:0 4px 20px rgba(92,74,58,.08);
-    border:1px solid #ede5db;
+    box-shadow:0 12px 32px rgba(92, 74, 58, 0.1);
+    border:1px solid rgba(255, 255, 255, 0.42);
     transition:.3s;
 }
 
 .photo-card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 8px 28px rgba(92,74,58,.12);
+    transform:translateY(-4px);
+    box-shadow:0 18px 40px rgba(92, 74, 58, 0.14);
 }
 
 .photo-card img{
@@ -197,12 +215,12 @@ select:focus{
 
 .photo-info h3{
     font-family:"Lora", Georgia, serif;
-    color:#5c4a3a;
+    color:#4f3f33;
     margin-bottom:8px;
 }
 
 .photo-info p{
-    color:#7a6b5d;
+    color:#6f5f52;
     font-size:15px;
 }
 
@@ -210,26 +228,30 @@ select:focus{
     grid-column:1/-1;
     text-align:center;
     padding:60px 20px;
-    color:#9a8b7d;
+    color:#8a7a6c;
     font-size:18px;
-    background:#fff;
-    border-radius:16px;
-    border:1px dashed #d4c4b0;
+    background:rgba(255, 255, 255, 0.22);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-radius:20px;
+    border:1px dashed rgba(255, 255, 255, 0.55);
 }
 
 /* Reviews */
 
 .review{
-    background:#fff;
+    background:rgba(255, 255, 255, 0.24);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
     padding:22px;
-    border-radius:14px;
-    border:1px solid #ede5db;
-    box-shadow:0 4px 16px rgba(92,74,58,.06);
+    border-radius:18px;
+    border:1px solid rgba(255, 255, 255, 0.42);
+    box-shadow:0 10px 28px rgba(92, 74, 58, 0.08);
 }
 
 .review h3{
     font-family:"Lora", Georgia, serif;
-    color:#5c4a3a;
+    color:#4f3f33;
 }
 
 .reviews-grid{
@@ -260,47 +282,50 @@ select{
     width:100%;
     padding:12px 14px;
     margin:10px 0;
-    border:1px solid #ddd2c4;
-    border-radius:10px;
+    border:1px solid rgba(255, 255, 255, 0.45);
+    border-radius:12px;
     font-size:16px;
     font-family:"Nunito", Arial, sans-serif;
-    background:#fdfbf8;
+    background:rgba(255, 255, 255, 0.35);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
     color:#4a3f35;
 }
 
 input::placeholder,
 textarea::placeholder{
-    color:#a89888;
+    color:#9a8b7d;
 }
 
 /* Buttons */
 
 button{
-    background:#c4886b;
+    background:rgba(196, 136, 107, 0.9);
     color:#fff;
-    border:none;
+    border:1px solid rgba(255, 255, 255, 0.35);
     padding:12px 22px;
     border-radius:24px;
     font-size:16px;
     font-weight:600;
-    font-family:"Nunito", Arial, sans-serif;
+    font-family:"Nunito", Arial, Helvetica, sans-serif;
     cursor:pointer;
     transition:.25s;
+    box-shadow:0 8px 24px rgba(196, 136, 107, 0.2);
 }
 
 button:hover{
-    background:#b0775c;
+    background:rgba(176, 119, 92, 0.95);
 }
 
 .delete-button{
-    background:#c97b7b;
+    background:rgba(201, 123, 123, 0.92);
     color:#fff;
     padding:8px 16px;
     font-size:14px;
 }
 
 .delete-button:hover{
-    background:#b56868;
+    background:rgba(181, 104, 104, 0.95);
 }
 
 /* Dashboard photo rows */
@@ -309,11 +334,11 @@ button:hover{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:#f5f0ea;
+    background:rgba(255, 255, 255, 0.28);
     padding:15px;
-    border-radius:10px;
+    border-radius:12px;
     margin-top:15px;
-    border:1px solid #ede5db;
+    border:1px solid rgba(255, 255, 255, 0.42);
 }
 
 /* Logout button */
@@ -322,13 +347,13 @@ button:hover{
     position:fixed;
     top:20px;
     right:20px;
-    background:#c97b7b;
+    background:rgba(201, 123, 123, 0.92);
     color:#fff;
     z-index:100;
 }
 
 .logout:hover{
-    background:#b56868;
+    background:rgba(181, 104, 104, 0.95);
 }
 
 .dashboard-grid{
@@ -348,12 +373,13 @@ button:hover{
 }
 
 .contact-preview{
-    background:#f5f0ea;
+    background:rgba(255, 255, 255, 0.28);
     border-radius:12px;
     padding:14px 16px;
     margin-bottom:18px;
     color:#4a3f35;
     line-height:1.7;
+    border:1px solid rgba(255, 255, 255, 0.42);
 }
 
 .contact-card label{
@@ -369,7 +395,7 @@ button:hover{
 
 .photo-item,
 .review-item{
-    background:#f5f0ea;
+    background:rgba(255, 255, 255, 0.28);
     padding:15px;
     margin-top:15px;
     border-radius:12px;
@@ -377,7 +403,7 @@ button:hover{
     justify-content:space-between;
     gap:15px;
     align-items:center;
-    border:1px solid #ede5db;
+    border:1px solid rgba(255, 255, 255, 0.42);
 }
 
 .review-item p{
@@ -389,7 +415,9 @@ button:hover{
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(74,63,53,.85);
+    background:rgba(45, 38, 32, 0.72);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
     justify-content:center;
     align-items:center;
     z-index:999;
@@ -398,8 +426,9 @@ button:hover{
 .lightbox img{
     max-width:90%;
     max-height:90%;
-    border-radius:12px;
-    box-shadow:0 8px 40px rgba(0,0,0,.3);
+    border-radius:16px;
+    box-shadow:0 12px 48px rgba(0,0,0,.35);
+    border:1px solid rgba(255, 255, 255, 0.25);
 }
 
 .close{
@@ -411,6 +440,8 @@ button:hover{
     color:#fff;
     font-size:44px;
     line-height:1;
+    box-shadow:none;
+    border:none;
 }
 
 .close:hover{
@@ -423,32 +454,33 @@ button:hover{
     justify-content:center;
     align-items:center;
     min-height:100vh;
-    background:linear-gradient(160deg,#faf6f1,#f0e8de);
 }
 
 .login{
-    background:#fff;
+    background:rgba(255, 255, 255, 0.28);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
     padding:40px;
-    border-radius:20px;
+    border-radius:24px;
     width:min(350px,90vw);
     text-align:center;
-    box-shadow:0 8px 32px rgba(92,74,58,.1);
-    border:1px solid #ede5db;
+    box-shadow:0 16px 40px rgba(92, 74, 58, 0.12);
+    border:1px solid rgba(255, 255, 255, 0.45);
 }
 
 .login h1{
     font-family:"Lora", Georgia, serif;
     margin-bottom:20px;
-    color:#5c4a3a;
+    color:#4f3f33;
 }
 
 .login a{
-    color:#c4886b;
+    color:#9a5f45;
     font-weight:600;
 }
 
 .small-text{
-    color:#9a8b7d;
+    color:#8a7a6c;
     margin:15px 0;
     font-size:14px;
 }
@@ -456,12 +488,14 @@ button:hover{
 /* Footer */
 
 footer{
-    background:#f0e8de;
-    color:#7a6b5d;
+    background:rgba(255, 255, 255, 0.24);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    color:#6f5f52;
     text-align:center;
     padding:28px;
     margin-top:50px;
-    border-top:2px solid #d4c4b0;
+    border-top:1px solid rgba(255, 255, 255, 0.42);
 }
 
 /* Mobile */
