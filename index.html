@@ -7,29 +7,38 @@
 <title>Jaroslava Forro Photography</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=11">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=12">
 </head>
 
 <body>
 <header>
 <h1>Jaroslava Forro Photography</h1>
-<p>Professional Portrait & Lifestyle Photographer</p>
+<p>Portrait &amp; Lifestyle</p>
 <nav>
 <a href="index.html">Home</a>
 <a href="#gallery">Gallery</a>
 <a href="#reviews">Reviews</a>
+<a href="#contact">Contact</a>
 <a href="admin.html">Admin</a>
 </nav>
 </header>
 
 <main>
-<section id="gallery" class="container">
+<section id="gallery" class="container section">
+<div class="section-heading">
+<span class="section-eyebrow">Portfolio</span>
 <h2 class="page-title">Gallery</h2>
+</div>
 <div id="galleryGrid" class="gallery"></div>
 </section>
 
-<section id="reviews" class="container">
+<section id="reviews" class="container section">
+<div class="section-heading">
+<span class="section-eyebrow">Kind Words</span>
+<h2 class="page-title">Reviews</h2>
+</div>
+
 <section class="card">
 <h2>Leave a Review</h2>
 <form id="publicReviewForm">
@@ -46,12 +55,14 @@
 </form>
 </section>
 
-<h2 class="page-title">Client Reviews</h2>
 <div id="reviewsList" class="reviews-grid"></div>
 </section>
 
-<section class="container contact">
+<section id="contact" class="container section contact">
+<div class="section-heading">
+<span class="section-eyebrow">Get in Touch</span>
 <h2 class="page-title">Contact</h2>
+</div>
 <div id="contactInfo" class="contact-info">
 <p>Loading contact details...</p>
 </div>
@@ -59,7 +70,7 @@
 </main>
 
 <div id="lightbox" class="lightbox">
-<button class="close" type="button" onclick="closeImage()">×</button>
+<button class="close" type="button" onclick="closeImage()" aria-label="Close">×</button>
 <img id="lightboxImage" alt="Selected gallery photograph">
 </div>
 
@@ -67,8 +78,8 @@
 © 2026 Jaroslava Forro Photography
 </footer>
 
-<script src="js/config.js?v=11"></script>
-<script src="js/script.js?v=11"></script>
+<script src="js/config.js?v=12"></script>
+<script src="js/script.js?v=12"></script>
 <script>
 displayGallery();
 displayPublicReviews();
