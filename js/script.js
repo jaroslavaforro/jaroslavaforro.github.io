@@ -676,19 +676,19 @@ async function displayDashboardReviews() {
   reviewList.innerHTML = reviews.map((review, index) => `
     <div class="review-item review-item-admin" data-review-index="${index}">
       <div class="review-item-body">
+        <span class="review-label">Recenzia od zákazníka</span>
         <strong>${escapeHtml(review.name)}</strong>
-        <br>
         <span class="stars">${escapeHtml(review.rating)}</span>
         <p>${escapeHtml(review.message)}</p>
-        ${review.reply ? `<p class="review-reply-preview"><strong>Uložená odpoveď:</strong> ${escapeHtml(review.reply)}</p>` : ""}
       </div>
       <div class="review-reply-form">
-        <label for="review-reply-${index}">Odpoveď na recenziu</label>
-        <textarea id="review-reply-${index}" placeholder="Napíšte odpoveď pre zákazníka..."></textarea>
+        <label for="review-reply-${index}">Vaša odpoveď (zobrazí sa pod recenziou na webe)</label>
+        <textarea id="review-reply-${index}" placeholder="Napíšte odpoveď..."></textarea>
         <div class="review-item-actions">
           <button class="save-reply-button" type="button" data-action="save-reply">Uložiť odpoveď</button>
-          <button class="delete-button" type="button" onclick="deleteReview(${index})">Odstrániť</button>
+          <button class="delete-button" type="button" onclick="deleteReview(${index})">Odstrániť recenziu</button>
         </div>
+        ${review.reply ? `<p class="review-reply-status">Aktuálna odpoveď na webe: „${escapeHtml(review.reply)}”</p>` : `<p class="review-reply-status review-reply-status-empty">Zatiaľ bez odpovede</p>`}
       </div>
     </div>
   `).join("");

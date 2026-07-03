@@ -467,8 +467,10 @@ select:focus {
 
 .review-reply {
     margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
+    padding: 16px 18px;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    background: rgba(201, 169, 110, 0.08);
 }
 
 .review-reply strong {
@@ -673,6 +675,30 @@ button:hover {
 
 .contact-card {
     grid-column: 1 / -1;
+}
+
+.dashboard-reviews-card {
+    grid-column: 1 / -1;
+}
+
+.review-label {
+    display: block;
+    color: var(--accent);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.review-reply-status {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: var(--accent-light);
+}
+
+.review-reply-status-empty {
+    color: var(--text-muted);
+    font-style: italic;
 }
 
 .card-note {
