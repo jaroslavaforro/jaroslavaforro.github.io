@@ -3,7 +3,7 @@
 <head>
 <script>
 (function () {
-  var version = "18";
+  var version = "19";
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.getRegistrations().then(function (regs) {
       regs.forEach(function (reg) { reg.unregister(); });
@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=18">
+<link rel="stylesheet" href="css/style.css?v=19">
 </head>
 
 <body>
@@ -47,8 +47,11 @@
 </div>
 <div id="galleryGrid" class="gallery"></div>
 <div id="galleryMoreWrap" class="gallery-more-wrap" hidden>
-<button type="button" class="gallery-more-btn" onclick="loadMoreGallery()">
+<button type="button" class="gallery-more-btn" id="galleryMoreBtn" onclick="loadMoreGallery()">
 <span class="gallery-more-label">Vidieť viac</span>
+</button>
+<button type="button" class="gallery-more-btn gallery-less-btn" id="galleryLessBtn" onclick="loadLessGallery()" hidden>
+<span class="gallery-more-label">Vidieť menej</span>
 </button>
 </div>
 </section>
@@ -98,8 +101,8 @@
 © 2026 Jaroslava Forro
 </footer>
 
-<script src="js/config.js?v=18"></script>
-<script src="js/script.js?v=18"></script>
+<script src="js/config.js?v=19"></script>
+<script src="js/script.js?v=19"></script>
 <script>
 displayGallery();
 displayPublicReviews();

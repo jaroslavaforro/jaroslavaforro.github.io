@@ -458,8 +458,28 @@ async function displayGallery(keepVisibleCount = false) {
     </article>
   `).join("");
 
-  if (paginate && visibleCount < photos.length) {
-    renderGalleryMoreButton(gallery);
+  if (paginate && photos.length > GALLERY_INITIAL_COUNT) {
+    updateGalleryControls(photos.length, visibleCount);
+  }
+}
+
+function updateGalleryControls(totalPhotos, visibleCount) {
+  const wrap = document.getElementById("galleryMoreWrap");
+  if (!wrap) return;
+
+  const moreBtn = document.getElementById("galleryMoreBtn");
+  const lessBtn = document.getElementById("galleryLessBtn");
+  const showMore = visibleCount < totalPhotos;
+  const showLess = visibleCount > GALLERY_INITIAL_COUNT;
+
+  wrap.hidden = !showMore && !showLess;
+
+  if (moreBtn) {
+    moreBtn.hidden = !showMore;
+  }
+
+  if (lessBtn) {
+    lessBtn.hidden = !showLess;
   }
 }
 
@@ -467,6 +487,10 @@ function removeGalleryMoreButton(gallery) {
   const wrap = document.getElementById("galleryMoreWrap");
   if (wrap) {
     wrap.hidden = true;
+    const moreBtn = document.getElementById("galleryMoreBtn");
+    const lessBtn = document.getElementById("galleryLessBtn");
+    if (moreBtn) moreBtn.hidden = true;
+    if (lessBtn) lessBtn.hidden = true;
     return;
   }
 
@@ -476,26 +500,39 @@ function removeGalleryMoreButton(gallery) {
   }
 }
 
-function renderGalleryMoreButton(gallery) {
+function renderGalleryMoreButton(gallery, totalPhotos, visibleCount) {
   let wrap = document.getElementById("galleryMoreWrap");
 
   if (!wrap) {
     wrap = document.createElement("div");
     wrap.className = "gallery-more-wrap";
     wrap.innerHTML = `
-      <button type="button" class="gallery-more-btn" onclick="loadMoreGallery()">
+      <button type="button" class="gallery-more-btn" id="galleryMoreBtn" onclick="loadMoreGallery()">
         <span class="gallery-more-label">Vidieť viac</span>
+      </button>
+      <button type="button" class="gallery-more-btn gallery-less-btn" id="galleryLessBtn" onclick="loadLessGallery()">
+        <span class="gallery-more-label">Vidieť menej</span>
       </button>
     `;
     gallery.after(wrap);
   }
 
-  wrap.hidden = false;
+  updateGalleryControls(totalPhotos, visibleCount);
 }
 
 function loadMoreGallery() {
   galleryVisibleCount += GALLERY_BATCH_SIZE;
   displayGallery(true);
+}
+
+function loadLessGallery() {
+  galleryVisibleCount = GALLERY_INITIAL_COUNT;
+  displayGallery(true);
+
+  const gallerySection = document.getElementById("gallery");
+  if (gallerySection) {
+    gallerySection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 function openImage(indexOrSrc) {

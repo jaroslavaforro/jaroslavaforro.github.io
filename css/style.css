@@ -361,11 +361,16 @@ select:focus {
 .gallery-more-wrap {
     display: flex;
     justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 16px;
     margin-top: 12px;
 }
 
 .gallery-more-btn {
-    width: min(100%, 520px);
+    width: min(100%, 320px);
+    flex: 1 1 220px;
+    max-width: 320px;
     padding: 28px 32px;
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-lg);
@@ -388,6 +393,12 @@ select:focus {
     transform: translateY(-4px);
     border-color: var(--accent);
     box-shadow: var(--shadow);
+}
+
+.gallery-less-btn {
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+        var(--surface);
 }
 
 .gallery-more-eyebrow {
