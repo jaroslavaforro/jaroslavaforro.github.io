@@ -1,1 +1,1 @@
-This folder stores gallery photos.
+Tento priečinok ukladá fotografie do galérie.

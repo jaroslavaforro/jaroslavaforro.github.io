@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reviews | Jaroslava Forro Photography</title>
+<title>Recenzie | Jaroslava Forro Photography</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="stylesheet" href="css/style.css?v=13">
 </head>
 
 <body>
 <header>
 <h1>Jaroslava Forro Photography</h1>
-<p>Client Reviews</p>
+<p>Recenzie klientov</p>
 <nav>
-<a href="index.html">Home</a>
-<a href="index.html#gallery">Gallery</a>
-<a href="reviews.html">Reviews</a>
+<a href="index.html">Domov</a>
+<a href="index.html#gallery">Galéria</a>
+<a href="reviews.html">Recenzie</a>
 <a href="admin.html">Admin</a>
 </nav>
 </header>
 
 <main class="container section">
 <div class="section-heading">
-<span class="section-eyebrow">Kind Words</span>
-<h2 class="page-title">Reviews</h2>
+<span class="section-eyebrow">Pochvalné slová</span>
+<h2 class="page-title">Recenzie</h2>
 </div>
 
 <section class="card">
-<h2>Leave a Review</h2>
+<h2>Napíšte recenziu</h2>
 <form id="publicReviewForm">
-<input id="name" placeholder="Your Name" required>
+<input id="name" placeholder="Vaše meno" required>
 <select id="rating">
 <option value="★★★★★">★★★★★</option>
 <option value="★★★★☆">★★★★☆</option>
@@ -39,16 +39,16 @@
 <option value="★★☆☆☆">★★☆☆☆</option>
 <option value="★☆☆☆☆">★☆☆☆☆</option>
 </select>
-<textarea id="message" placeholder="Write your review..." required></textarea>
-<button type="submit">Submit Review</button>
+<textarea id="message" placeholder="Napíšte svoju recenziu..." required></textarea>
+<button type="submit">Odoslať recenziu</button>
 </form>
 </section>
 
 <div id="reviewsList" class="reviews-grid"></div>
 </main>
 
-<script src="js/config.js?v=12"></script>
-<script src="js/script.js?v=12"></script>
+<script src="js/config.js?v=13"></script>
+<script src="js/script.js?v=13"></script>
 <script>
 displayPublicReviews();
 

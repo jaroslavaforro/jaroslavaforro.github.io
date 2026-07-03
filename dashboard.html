@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard | Jaroslava Forro Photography</title>
+<title>Administrácia | Jaroslava Forro Photography</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="stylesheet" href="css/style.css?v=13">
 </head>
 
 <body>
@@ -17,52 +17,52 @@ if (sessionStorage.getItem("admin") !== "true") {
 }
 </script>
 
-<button class="logout" type="button" onclick="logout()">Logout</button>
+<button class="logout" type="button" onclick="logout()">Odhlásiť sa</button>
 
 <header>
 <h1>Jaroslava Forro Photography</h1>
-<p>Admin Dashboard</p>
+<p>Administrácia</p>
 <nav>
-<a href="index.html">Home</a>
-<a href="gallery.html">Gallery</a>
-<a href="reviews.html">Reviews</a>
+<a href="index.html">Domov</a>
+<a href="gallery.html">Galéria</a>
+<a href="reviews.html">Recenzie</a>
 </nav>
 </header>
 
 <main class="container">
 <div class="dashboard-grid">
 <section class="card contact-card">
-<h2>Contact Info</h2>
-<p class="card-note">This shows on the home page under Contact.</p>
-<div id="contactPreview" class="contact-preview">Loading current contact...</div>
+<h2>Kontaktné údaje</h2>
+<p class="card-note">Zobrazia sa na hlavnej stránke v sekcii Kontakt.</p>
+<div id="contactPreview" class="contact-preview">Načítavajú sa aktuálne kontakty...</div>
 <form id="contactForm" onsubmit="saveContactInfo(event)">
-<label for="contactEmail">Gmail / Email</label>
+<label for="contactEmail">E-mail</label>
 <input id="contactEmail" type="text" placeholder="jaroslavaforro@gmail.com" required>
-<label for="contactPhone">Phone Number</label>
+<label for="contactPhone">Telefónne číslo</label>
 <input id="contactPhone" type="tel" placeholder="+421 900 000 000">
-<button type="submit">Save Contact Info</button>
+<button type="submit">Uložiť kontaktné údaje</button>
 </form>
 </section>
 
 <section class="card">
-<h2>Upload Photo</h2>
+<h2>Nahrať fotografiu</h2>
 <form id="photoForm" onsubmit="addPhoto(event)">
-<input id="photoName" type="text" placeholder="Photo name" required>
-<textarea id="photoCaption" placeholder="Caption" required></textarea>
+<input id="photoName" type="text" placeholder="Názov fotografie" required>
+<textarea id="photoCaption" placeholder="Popis" required></textarea>
 <input type="file" id="photoImage" accept="image/*" required>
-<button type="submit">Upload Photo</button>
+<button type="submit">Nahrať fotografiu</button>
 </form>
 </section>
 
 <section class="card">
-<h2>Gallery Manager</h2>
+<h2>Správa galérie</h2>
 <div id="galleryList"></div>
 </section>
 
 <section class="card">
-<h2>Add Review</h2>
+<h2>Pridať recenziu</h2>
 <form id="reviewForm" onsubmit="addReview(event)">
-<input id="reviewName" type="text" placeholder="Client name" required>
+<input id="reviewName" type="text" placeholder="Meno klienta" required>
 <select id="reviewRating">
 <option value="★★★★★">★★★★★</option>
 <option value="★★★★☆">★★★★☆</option>
@@ -70,19 +70,19 @@ if (sessionStorage.getItem("admin") !== "true") {
 <option value="★★☆☆☆">★★☆☆☆</option>
 <option value="★☆☆☆☆">★☆☆☆☆</option>
 </select>
-<textarea id="reviewMessage" placeholder="Review" required></textarea>
-<button type="submit">Add Review</button>
+<textarea id="reviewMessage" placeholder="Recenzia" required></textarea>
+<button type="submit">Pridať recenziu</button>
 </form>
 </section>
 
 <section class="card">
-<h2>Reviews Manager</h2>
+<h2>Správa recenzií</h2>
 <div id="reviewList"></div>
 </section>
 </div>
 </main>
 
-<script src="js/config.js?v=12"></script>
-<script src="js/script.js?v=12"></script>
+<script src="js/config.js?v=13"></script>
+<script src="js/script.js?v=13"></script>
 </body>
 </html>

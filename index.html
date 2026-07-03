@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +8,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=12">
+<link rel="stylesheet" href="css/style.css?v=13">
 </head>
 
 <body>
 <header>
 <h1>Jaroslava Forro Photography</h1>
-<p>Portrait &amp; Lifestyle</p>
+<p>Portrét a životný štýl</p>
 <nav>
-<a href="index.html">Home</a>
-<a href="#gallery">Gallery</a>
-<a href="#reviews">Reviews</a>
-<a href="#contact">Contact</a>
+<a href="index.html">Domov</a>
+<a href="#gallery">Galéria</a>
+<a href="#reviews">Recenzie</a>
+<a href="#contact">Kontakt</a>
 <a href="admin.html">Admin</a>
 </nav>
 </header>
@@ -27,22 +27,22 @@
 <main>
 <section id="gallery" class="container section">
 <div class="section-heading">
-<span class="section-eyebrow">Portfolio</span>
-<h2 class="page-title">Gallery</h2>
+<span class="section-eyebrow">Portfólio</span>
+<h2 class="page-title">Galéria</h2>
 </div>
 <div id="galleryGrid" class="gallery"></div>
 </section>
 
 <section id="reviews" class="container section">
 <div class="section-heading">
-<span class="section-eyebrow">Kind Words</span>
-<h2 class="page-title">Reviews</h2>
+<span class="section-eyebrow">Pochvalné slová</span>
+<h2 class="page-title">Recenzie</h2>
 </div>
 
 <section class="card">
-<h2>Leave a Review</h2>
+<h2>Napíšte recenziu</h2>
 <form id="publicReviewForm">
-<input id="name" placeholder="Your Name" required>
+<input id="name" placeholder="Vaše meno" required>
 <select id="rating">
 <option value="★★★★★">★★★★★</option>
 <option value="★★★★☆">★★★★☆</option>
@@ -50,8 +50,8 @@
 <option value="★★☆☆☆">★★☆☆☆</option>
 <option value="★☆☆☆☆">★☆☆☆☆</option>
 </select>
-<textarea id="message" placeholder="Write your review..." required></textarea>
-<button type="submit">Submit Review</button>
+<textarea id="message" placeholder="Napíšte svoju recenziu..." required></textarea>
+<button type="submit">Odoslať recenziu</button>
 </form>
 </section>
 
@@ -60,26 +60,26 @@
 
 <section id="contact" class="container section contact">
 <div class="section-heading">
-<span class="section-eyebrow">Get in Touch</span>
-<h2 class="page-title">Contact</h2>
+<span class="section-eyebrow">Kontaktujte ma</span>
+<h2 class="page-title">Kontakt</h2>
 </div>
 <div id="contactInfo" class="contact-info">
-<p>Loading contact details...</p>
+<p>Načítavajú sa kontaktné údaje...</p>
 </div>
 </section>
 </main>
 
 <div id="lightbox" class="lightbox">
-<button class="close" type="button" onclick="closeImage()" aria-label="Close">×</button>
-<img id="lightboxImage" alt="Selected gallery photograph">
+<button class="close" type="button" onclick="closeImage()" aria-label="Zavrieť">×</button>
+<img id="lightboxImage" alt="Vybraná fotografia z galérie">
 </div>
 
 <footer>
 © 2026 Jaroslava Forro Photography
 </footer>
 
-<script src="js/config.js?v=12"></script>
-<script src="js/script.js?v=12"></script>
+<script src="js/config.js?v=13"></script>
+<script src="js/script.js?v=13"></script>
 <script>
 displayGallery();
 displayPublicReviews();

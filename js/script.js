@@ -35,8 +35,8 @@ async function parseStorageResponse(response, path = "") {
 
   if (!response.ok) {
     const fallback = path.includes("contact")
-      ? "Could not save contact info. Check your internet and try again."
-      : "Could not save. Try again.";
+      ? "Nepodarilo sa uložiť kontaktné údaje. Skontrolujte internetové pripojenie a skúste znova."
+      : "Nepodarilo sa uložiť. Skúste znova.";
     throw new Error(fallback);
   }
 
@@ -69,7 +69,7 @@ async function storageRequest(path, method = "GET", body = null) {
   try {
     response = await fetch(`${MANTLE_BASE}${path}`, options);
   } catch (error) {
-    throw new Error("Could not connect. Check your internet and try again.");
+    throw new Error("Nepodarilo sa pripojiť. Skontrolujte internetové pripojenie a skúste znova.");
   }
 
   return parseStorageResponse(response, path);
@@ -110,11 +110,11 @@ function resizeToDataUrl(file, maxSize, quality) {
         resolve(canvas.toDataURL("image/jpeg", quality));
       };
 
-      image.onerror = () => reject(new Error("Could not read image file."));
+      image.onerror = () => reject(new Error("Nepodarilo sa načítať súbor s obrázkom."));
       image.src = reader.result;
     };
 
-    reader.onerror = () => reject(new Error("Could not read image file."));
+    reader.onerror = () => reject(new Error("Nepodarilo sa načítať súbor s obrázkom."));
     reader.readAsDataURL(file);
   });
 }
@@ -134,7 +134,7 @@ async function compressImage(file) {
     maxSize -= 100;
   }
 
-  throw new Error("Image is too large. Please choose a smaller photo.");
+  throw new Error("Obrázok je príliš veľký. Vyberte menšiu fotografiu.");
 }
 
 async function loadPhotos() {
@@ -217,16 +217,16 @@ function renderContactHtml(contact) {
   const lines = [];
 
   if (contact.email) {
-    lines.push(`<p>Email: <a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a></p>`);
+    lines.push(`<p>E-mail: <a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a></p>`);
   }
 
   if (contact.phone) {
     const phoneHref = contact.phone.replace(/[^\d+]/g, "");
-    lines.push(`<p>Phone: <a href="tel:${escapeHtml(phoneHref)}">${escapeHtml(contact.phone)}</a></p>`);
+    lines.push(`<p>Telefón: <a href="tel:${escapeHtml(phoneHref)}">${escapeHtml(contact.phone)}</a></p>`);
   }
 
   if (lines.length === 0) {
-    return "<p>Contact details will appear here soon.</p>";
+    return "<p>Kontaktné údaje sa čoskoro zobrazia.</p>";
   }
 
   return lines.join("");
@@ -257,7 +257,7 @@ async function loadContactForm() {
     }
   } catch (error) {
     if (preview) {
-      preview.textContent = "Could not load contact info yet.";
+      preview.textContent = "Kontaktné údaje sa zatiaľ nepodarilo načítať.";
     }
   }
 }
@@ -270,22 +270,22 @@ async function saveContactInfo(event) {
   const submitButton = event.target.querySelector("button[type='submit']");
 
   if (!email) {
-    alert("Please enter an email address.");
+    alert("Zadajte e-mailovú adresu.");
     return;
   }
 
   try {
     submitButton.disabled = true;
-    submitButton.textContent = "Saving...";
+    submitButton.textContent = "Ukladá sa...";
 
     await saveContact({ email, phone });
     await loadContactForm();
-    alert("Contact info updated. Check the home page Contact section.");
+    alert("Kontaktné údaje boli aktualizované. Skontrolujte sekciu Kontakt na hlavnej stránke.");
   } catch (error) {
-    alert(error.message || "Could not save contact info.");
+    alert(error.message || "Nepodarilo sa uložiť kontaktné údaje.");
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Save Contact Info";
+    submitButton.textContent = "Uložiť kontaktné údaje";
   }
 }
 
@@ -295,7 +295,7 @@ function login(event) {
   const password = document.getElementById("password").value;
 
   if (password !== PASSWORD) {
-    alert("Wrong password");
+    alert("Nesprávne heslo");
     return;
   }
 
@@ -317,13 +317,13 @@ async function addPhoto(event) {
   const submitButton = event.target.querySelector("button[type='submit']");
 
   if (!name || !caption || !file) {
-    alert("Please complete all photo fields.");
+    alert("Vyplňte všetky polia fotografie.");
     return;
   }
 
   try {
     submitButton.disabled = true;
-    submitButton.textContent = "Uploading...";
+    submitButton.textContent = "Nahráva sa...";
 
     const image = await compressImage(file);
     const id = Date.now().toString();
@@ -337,12 +337,12 @@ async function addPhoto(event) {
     await loadPhotos();
     document.getElementById("photoForm").reset();
     await displayDashboardPhotos();
-    alert("Photo uploaded. Everyone can see it now.");
+    alert("Fotografia bola nahraná. Teraz ju uvidia všetci.");
   } catch (error) {
-    alert(error.message || "Could not upload photo.");
+    alert(error.message || "Nepodarilo sa nahrať fotografiu.");
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Upload Photo";
+    submitButton.textContent = "Nahrať fotografiu";
   }
 }
 
@@ -357,7 +357,7 @@ async function deletePhoto(index) {
     await loadPhotos();
     await displayDashboardPhotos();
   } catch (error) {
-    alert(error.message || "Could not delete photo.");
+    alert(error.message || "Nepodarilo sa odstrániť fotografiu.");
   }
 }
 
@@ -365,13 +365,13 @@ async function displayDashboardPhotos() {
   const galleryList = document.getElementById("galleryList");
   if (!galleryList) return;
 
-  galleryList.innerHTML = "<p>Loading photos...</p>";
+  galleryList.innerHTML = "<p>Načítavajú sa fotografie...</p>";
 
   await loadPhotos();
   const photos = getPhotos();
 
   if (photos.length === 0) {
-    galleryList.innerHTML = "<p>No photos uploaded yet.</p>";
+    galleryList.innerHTML = "<p>Zatiaľ neboli nahrané žiadne fotografie.</p>";
     return;
   }
 
@@ -382,7 +382,7 @@ async function displayDashboardPhotos() {
         <br>
         ${escapeHtml(photo.caption)}
       </div>
-      <button class="delete-button" type="button" onclick="deletePhoto(${index})">Delete</button>
+      <button class="delete-button" type="button" onclick="deletePhoto(${index})">Odstrániť</button>
     </div>
   `).join("");
 }
@@ -391,13 +391,13 @@ async function displayGallery() {
   const gallery = document.getElementById("galleryGrid") || document.getElementById("gallery");
   if (!gallery) return;
 
-  gallery.innerHTML = '<div class="empty">Loading gallery...</div>';
+  gallery.innerHTML = '<div class="empty">Načítava sa galéria...</div>';
 
   await loadPhotos();
   const photos = getPhotos();
 
   if (photos.length === 0) {
-    gallery.innerHTML = '<div class="empty">No photos have been uploaded yet.</div>';
+    gallery.innerHTML = '<div class="empty">Zatiaľ neboli nahrané žiadne fotografie.</div>';
     return;
   }
 
@@ -441,7 +441,7 @@ async function displayPublicReviews() {
   const admin = isAdmin();
 
   if (reviews.length === 0) {
-    container.innerHTML = '<div class="empty">No reviews yet. Be the first to share your experience!</div>';
+    container.innerHTML = '<div class="empty">Zatiaľ žiadne recenzie. Buďte prvý, kto sa podelí o svoju skúsenosť!</div>';
     return;
   }
 
@@ -450,7 +450,7 @@ async function displayPublicReviews() {
       <h3>${escapeHtml(review.name)}</h3>
       <div class="stars">${escapeHtml(review.rating)}</div>
       <p>${escapeHtml(review.message)}</p>
-      ${admin ? `<div class="review-actions"><button class="delete-button" type="button" onclick="deletePublicReview(${index})">Remove</button></div>` : ""}
+      ${admin ? `<div class="review-actions"><button class="delete-button" type="button" onclick="deletePublicReview(${index})">Odstrániť</button></div>` : ""}
     </article>
   `).join("");
 }
@@ -464,13 +464,13 @@ async function submitPublicReview(event) {
   const submitButton = event.target.querySelector("button[type='submit']");
 
   if (!name || !message) {
-    alert("Please fill in all fields.");
+    alert("Vyplňte všetky polia.");
     return;
   }
 
   try {
     submitButton.disabled = true;
-    submitButton.textContent = "Submitting...";
+    submitButton.textContent = "Odosiela sa...";
 
     const reviews = [...getReviews()];
     reviews.unshift({ name, rating, message });
@@ -478,12 +478,12 @@ async function submitPublicReview(event) {
 
     await displayPublicReviews();
     event.target.reset();
-    alert("Thank you for your review!");
+    alert("Ďakujeme za vašu recenziu!");
   } catch (error) {
-    alert(error.message || "Could not submit review.");
+    alert(error.message || "Nepodarilo sa odoslať recenziu.");
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Submit Review";
+    submitButton.textContent = "Odoslať recenziu";
   }
 }
 
@@ -497,7 +497,7 @@ async function deletePublicReview(index) {
     await displayPublicReviews();
     await displayDashboardReviews();
   } catch (error) {
-    alert(error.message || "Could not remove review.");
+    alert(error.message || "Nepodarilo sa odstrániť recenziu.");
   }
 }
 
@@ -509,7 +509,7 @@ async function addReview(event) {
   const message = document.getElementById("reviewMessage").value.trim();
 
   if (!name || !message) {
-    alert("Please complete all review fields.");
+    alert("Vyplňte všetky polia recenzie.");
     return;
   }
 
@@ -520,9 +520,9 @@ async function addReview(event) {
 
     document.getElementById("reviewForm").reset();
     await displayDashboardReviews();
-    alert("Review added.");
+    alert("Recenzia bola pridaná.");
   } catch (error) {
-    alert(error.message || "Could not add review.");
+    alert(error.message || "Nepodarilo sa pridať recenziu.");
   }
 }
 
@@ -533,7 +533,7 @@ async function deleteReview(index) {
     await saveReviews(reviews);
     await displayDashboardReviews();
   } catch (error) {
-    alert(error.message || "Could not delete review.");
+    alert(error.message || "Nepodarilo sa odstrániť recenziu.");
   }
 }
 
@@ -545,7 +545,7 @@ async function displayDashboardReviews() {
   const reviews = getReviews();
 
   if (reviews.length === 0) {
-    reviewList.innerHTML = "<p>No reviews yet.</p>";
+    reviewList.innerHTML = "<p>Zatiaľ žiadne recenzie.</p>";
     return;
   }
 
@@ -557,7 +557,7 @@ async function displayDashboardReviews() {
         <span class="stars">${escapeHtml(review.rating)}</span>
         <p>${escapeHtml(review.message)}</p>
       </div>
-      <button class="delete-button" type="button" onclick="deleteReview(${index})">Delete</button>
+      <button class="delete-button" type="button" onclick="deleteReview(${index})">Odstrániť</button>
     </div>
   `).join("");
 }
