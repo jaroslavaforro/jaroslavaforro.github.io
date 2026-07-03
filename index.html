@@ -3,7 +3,7 @@
 <head>
 <script>
 (function () {
-  var version = "19";
+  var version = "20";
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.getRegistrations().then(function (regs) {
       regs.forEach(function (reg) { reg.unregister(); });
@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=19">
+<link rel="stylesheet" href="css/style.css?v=20">
 </head>
 
 <body>
@@ -46,11 +46,11 @@
 <h2 class="page-title">Galéria</h2>
 </div>
 <div id="galleryGrid" class="gallery"></div>
-<div id="galleryMoreWrap" class="gallery-more-wrap" hidden>
-<button type="button" class="gallery-more-btn" id="galleryMoreBtn" onclick="loadMoreGallery()">
+<div id="galleryMoreWrap" class="gallery-more-wrap" style="display:none">
+<button type="button" class="gallery-more-btn" id="galleryMoreBtn">
 <span class="gallery-more-label">Vidieť viac</span>
 </button>
-<button type="button" class="gallery-more-btn gallery-less-btn" id="galleryLessBtn" onclick="loadLessGallery()" hidden>
+<button type="button" class="gallery-more-btn gallery-less-btn" id="galleryLessBtn" style="display:none">
 <span class="gallery-more-label">Vidieť menej</span>
 </button>
 </div>
@@ -101,12 +101,15 @@
 © 2026 Jaroslava Forro
 </footer>
 
-<script src="js/config.js?v=19"></script>
-<script src="js/script.js?v=19"></script>
+<script src="js/config.js?v=20"></script>
+<script src="js/script.js?v=20"></script>
 <script>
 displayGallery();
 displayPublicReviews();
 displayContact();
+
+document.getElementById("galleryMoreBtn").addEventListener("click", loadMoreGallery);
+document.getElementById("galleryLessBtn").addEventListener("click", loadLessGallery);
 
 document.getElementById("publicReviewForm").addEventListener("submit", function (event) {
   submitPublicReview(event);

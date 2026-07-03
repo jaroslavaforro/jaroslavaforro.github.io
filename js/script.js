@@ -436,13 +436,13 @@ async function displayGallery(keepVisibleCount = false) {
   }
 
   gallery.innerHTML = '<div class="empty">Načítava sa galéria...</div>';
-  removeGalleryMoreButton(gallery);
 
   await loadPhotos();
   const photos = getPhotos();
 
   if (photos.length === 0) {
     gallery.innerHTML = '<div class="empty">Zatiaľ neboli nahrané žiadne fotografie.</div>';
+    updateGalleryControls(0, 0);
     return;
   }
 
@@ -458,66 +458,25 @@ async function displayGallery(keepVisibleCount = false) {
     </article>
   `).join("");
 
-  if (paginate && photos.length > GALLERY_INITIAL_COUNT) {
+  if (paginate) {
     updateGalleryControls(photos.length, visibleCount);
+  } else {
+    updateGalleryControls(0, 0);
   }
 }
 
 function updateGalleryControls(totalPhotos, visibleCount) {
   const wrap = document.getElementById("galleryMoreWrap");
-  if (!wrap) return;
-
   const moreBtn = document.getElementById("galleryMoreBtn");
   const lessBtn = document.getElementById("galleryLessBtn");
-  const showMore = visibleCount < totalPhotos;
-  const showLess = visibleCount > GALLERY_INITIAL_COUNT;
+  if (!wrap || !moreBtn || !lessBtn) return;
 
-  wrap.hidden = !showMore && !showLess;
+  const showMore = totalPhotos > GALLERY_INITIAL_COUNT && visibleCount < totalPhotos;
+  const showLess = totalPhotos > GALLERY_INITIAL_COUNT && visibleCount > GALLERY_INITIAL_COUNT;
 
-  if (moreBtn) {
-    moreBtn.hidden = !showMore;
-  }
-
-  if (lessBtn) {
-    lessBtn.hidden = !showLess;
-  }
-}
-
-function removeGalleryMoreButton(gallery) {
-  const wrap = document.getElementById("galleryMoreWrap");
-  if (wrap) {
-    wrap.hidden = true;
-    const moreBtn = document.getElementById("galleryMoreBtn");
-    const lessBtn = document.getElementById("galleryLessBtn");
-    if (moreBtn) moreBtn.hidden = true;
-    if (lessBtn) lessBtn.hidden = true;
-    return;
-  }
-
-  const existing = gallery.parentElement.querySelector(".gallery-more-wrap");
-  if (existing) {
-    existing.remove();
-  }
-}
-
-function renderGalleryMoreButton(gallery, totalPhotos, visibleCount) {
-  let wrap = document.getElementById("galleryMoreWrap");
-
-  if (!wrap) {
-    wrap = document.createElement("div");
-    wrap.className = "gallery-more-wrap";
-    wrap.innerHTML = `
-      <button type="button" class="gallery-more-btn" id="galleryMoreBtn" onclick="loadMoreGallery()">
-        <span class="gallery-more-label">Vidieť viac</span>
-      </button>
-      <button type="button" class="gallery-more-btn gallery-less-btn" id="galleryLessBtn" onclick="loadLessGallery()">
-        <span class="gallery-more-label">Vidieť menej</span>
-      </button>
-    `;
-    gallery.after(wrap);
-  }
-
-  updateGalleryControls(totalPhotos, visibleCount);
+  wrap.style.display = showMore || showLess ? "flex" : "none";
+  moreBtn.style.display = showMore ? "flex" : "none";
+  lessBtn.style.display = showLess ? "flex" : "none";
 }
 
 function loadMoreGallery() {
@@ -534,6 +493,9 @@ function loadLessGallery() {
     gallerySection.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
+
+window.loadMoreGallery = loadMoreGallery;
+window.loadLessGallery = loadLessGallery;
 
 function openImage(indexOrSrc) {
   const photos = getPhotos();
