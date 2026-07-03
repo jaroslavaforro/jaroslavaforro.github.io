@@ -464,6 +464,12 @@ async function displayGallery(keepVisibleCount = false) {
 }
 
 function removeGalleryMoreButton(gallery) {
+  const wrap = document.getElementById("galleryMoreWrap");
+  if (wrap) {
+    wrap.hidden = true;
+    return;
+  }
+
   const existing = gallery.parentElement.querySelector(".gallery-more-wrap");
   if (existing) {
     existing.remove();
@@ -471,16 +477,20 @@ function removeGalleryMoreButton(gallery) {
 }
 
 function renderGalleryMoreButton(gallery) {
-  const wrap = document.createElement("div");
-  wrap.className = "gallery-more-wrap";
+  let wrap = document.getElementById("galleryMoreWrap");
 
-  wrap.innerHTML = `
-    <button type="button" class="gallery-more-btn" onclick="loadMoreGallery()">
-      <span class="gallery-more-label">Vidieť viac</span>
-    </button>
-  `;
+  if (!wrap) {
+    wrap = document.createElement("div");
+    wrap.className = "gallery-more-wrap";
+    wrap.innerHTML = `
+      <button type="button" class="gallery-more-btn" onclick="loadMoreGallery()">
+        <span class="gallery-more-label">Vidieť viac</span>
+      </button>
+    `;
+    gallery.after(wrap);
+  }
 
-  gallery.after(wrap);
+  wrap.hidden = false;
 }
 
 function loadMoreGallery() {
