@@ -3,8 +3,14 @@ const MANTLE_BASE = `https://mantledb.sh/v2/${STORAGE_CONFIG.mantleNamespace}`;
 const MANTLE_KEY = STORAGE_CONFIG.mantleKey;
 const MAX_IMAGE_BYTES = 45000;
 
+const DEFAULT_CONTACT = {
+  email: "info@jaroslavaforro.com",
+  phone: ""
+};
+
 let photosCache = [];
 let reviewsCache = [];
+let contactCache = { ...DEFAULT_CONTACT };
 let currentLightboxIndex = null;
 
 function isAdmin() {
@@ -173,6 +179,99 @@ async function savePhotoIndex(entries) {
 async function saveReviews(reviews) {
   await storageRequest("/reviews", "POST", reviews);
   reviewsCache = reviews;
+}
+
+async function loadContact() {
+  const contact = await storageRequest("/contact");
+
+  if (contact && typeof contact === "object") {
+    contactCache = {
+      email: String(contact.email || DEFAULT_CONTACT.email).trim(),
+      phone: String(contact.phone || "").trim()
+    };
+  } else {
+    contactCache = { ...DEFAULT_CONTACT };
+  }
+
+  return contactCache;
+}
+
+function getContact() {
+  return contactCache;
+}
+
+async function saveContact(contact) {
+  const nextContact = {
+    email: String(contact.email || "").trim(),
+    phone: String(contact.phone || "").trim()
+  };
+
+  await storageRequest("/contact", "POST", nextContact);
+  contactCache = nextContact;
+}
+
+function renderContactHtml(contact) {
+  const lines = [];
+
+  if (contact.email) {
+    lines.push(`<p>Email: <a href="mailto:${escapeHtml(contact.email)}">${escapeHtml(contact.email)}</a></p>`);
+  }
+
+  if (contact.phone) {
+    const phoneHref = contact.phone.replace(/[^\d+]/g, "");
+    lines.push(`<p>Phone: <a href="tel:${escapeHtml(phoneHref)}">${escapeHtml(contact.phone)}</a></p>`);
+  }
+
+  if (lines.length === 0) {
+    return "<p>Contact details will appear here soon.</p>";
+  }
+
+  return lines.join("");
+}
+
+async function displayContact() {
+  const container = document.getElementById("contactInfo");
+  if (!container) return;
+
+  await loadContact();
+  container.innerHTML = renderContactHtml(getContact());
+}
+
+async function loadContactForm() {
+  const emailInput = document.getElementById("contactEmail");
+  const phoneInput = document.getElementById("contactPhone");
+  if (!emailInput || !phoneInput) return;
+
+  await loadContact();
+  const contact = getContact();
+  emailInput.value = contact.email;
+  phoneInput.value = contact.phone;
+}
+
+async function saveContactInfo(event) {
+  if (event) event.preventDefault();
+
+  const email = document.getElementById("contactEmail").value.trim();
+  const phone = document.getElementById("contactPhone").value.trim();
+  const submitButton = event.target.querySelector("button[type='submit']");
+
+  if (!email) {
+    alert("Please enter an email address.");
+    return;
+  }
+
+  try {
+    submitButton.disabled = true;
+    submitButton.textContent = "Saving...";
+
+    await saveContact({ email, phone });
+    alert("Contact info updated.");
+  } catch (error) {
+    alert(error.message || "Could not save contact info.");
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Save Contact Info";
+  }
 }
 
 function login(event) {
@@ -477,5 +576,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (document.getElementById("reviewList")) {
     displayDashboardReviews();
+  }
+
+  if (document.getElementById("contactForm")) {
+    loadContactForm();
   }
 });

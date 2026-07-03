@@ -60,7 +60,9 @@ Professional photography capturing beautiful moments, portraits, family sessions
 
 <section class="container contact">
 <h2 class="page-title">Contact</h2>
-<p>Email: info@jaroslavaforro.com</p>
+<div id="contactInfo" class="contact-info">
+<p>Loading contact details...</p>
+</div>
 </section>
 </main>
 
@@ -74,11 +76,12 @@ Professional photography capturing beautiful moments, portraits, family sessions
 © 2026 Jaroslava Forro Photography
 </footer>
 
-<script src="js/config.js?v=5"></script>
-<script src="js/script.js?v=5"></script>
+<script src="js/config.js?v=6"></script>
+<script src="js/script.js?v=6"></script>
 <script>
 displayGallery();
 displayPublicReviews();
+displayContact();
 
 document.getElementById("publicReviewForm").addEventListener("submit", function (event) {
   submitPublicReview(event);

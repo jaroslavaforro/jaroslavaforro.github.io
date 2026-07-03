@@ -100,6 +100,19 @@ select:focus{
     font-size:17px;
 }
 
+.contact-info p{
+    margin-bottom:10px;
+}
+
+.contact-info a{
+    color:#a66b4f;
+    text-decoration:none;
+}
+
+.contact-info a:hover{
+    text-decoration:underline;
+}
+
 .button-link{
     display:inline-block;
     background:#c4886b;
