@@ -535,6 +535,12 @@ async function displayPublicReviews() {
       <h3>${escapeHtml(review.name)}</h3>
       <div class="stars">${escapeHtml(review.rating)}</div>
       <p>${escapeHtml(review.message)}</p>
+      ${review.reply ? `
+        <div class="review-reply">
+          <strong>Odpoveď Jaroslavy Forro</strong>
+          <p>${escapeHtml(review.reply)}</p>
+        </div>
+      ` : ""}
       ${admin ? `<div class="review-actions"><button class="delete-button" type="button" onclick="deletePublicReview(${index})">Odstrániť</button></div>` : ""}
     </article>
   `).join("");
@@ -622,6 +628,36 @@ async function deleteReview(index) {
   }
 }
 
+async function saveReviewReply(index) {
+  const textarea = document.getElementById(`review-reply-${index}`);
+  if (!textarea) return;
+
+  const reply = textarea.value.trim();
+  const saveButton = textarea.parentElement.querySelector(".save-reply-button");
+
+  try {
+    if (saveButton) {
+      saveButton.disabled = true;
+      saveButton.textContent = "Ukladá sa...";
+    }
+
+    const reviews = [...getReviews()];
+    if (!reviews[index]) return;
+
+    reviews[index] = { ...reviews[index], reply };
+    await saveReviews(reviews);
+    await displayDashboardReviews();
+    alert("Odpoveď bola uložená.");
+  } catch (error) {
+    alert(error.message || "Nepodarilo sa uložiť odpoveď.");
+  } finally {
+    if (saveButton) {
+      saveButton.disabled = false;
+      saveButton.textContent = "Uložiť odpoveď";
+    }
+  }
+}
+
 async function displayDashboardReviews() {
   const reviewList = document.getElementById("reviewList");
   if (!reviewList) return;
@@ -635,17 +671,34 @@ async function displayDashboardReviews() {
   }
 
   reviewList.innerHTML = reviews.map((review, index) => `
-    <div class="review-item">
-      <div>
+    <div class="review-item review-item-admin">
+      <div class="review-item-body">
         <strong>${escapeHtml(review.name)}</strong>
         <br>
         <span class="stars">${escapeHtml(review.rating)}</span>
         <p>${escapeHtml(review.message)}</p>
+        ${review.reply ? `<p class="review-reply-preview"><strong>Uložená odpoveď:</strong> ${escapeHtml(review.reply)}</p>` : ""}
       </div>
-      <button class="delete-button" type="button" onclick="deleteReview(${index})">Odstrániť</button>
+      <div class="review-reply-form">
+        <label for="review-reply-${index}">Odpoveď na recenziu</label>
+        <textarea id="review-reply-${index}" placeholder="Napíšte odpoveď pre zákazníka..."></textarea>
+        <div class="review-item-actions">
+          <button class="save-reply-button" type="button" onclick="saveReviewReply(${index})">Uložiť odpoveď</button>
+          <button class="delete-button" type="button" onclick="deleteReview(${index})">Odstrániť</button>
+        </div>
+      </div>
     </div>
   `).join("");
+
+  reviews.forEach((review, index) => {
+    const textarea = document.getElementById(`review-reply-${index}`);
+    if (textarea) {
+      textarea.value = review.reply || "";
+    }
+  });
 }
+
+window.saveReviewReply = saveReviewReply;
 
 document.addEventListener("DOMContentLoaded", function () {
   preferredImageMime = detectPreferredImageMime();
