@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=8">
 </head>
 
 <body>
@@ -31,6 +31,15 @@ if (sessionStorage.getItem("admin") !== "true") {
 
 <main class="container">
 <div class="dashboard-grid">
+<section class="card">
+<h2>Contact Info</h2>
+<form id="contactForm" onsubmit="saveContactInfo(event)">
+<input id="contactEmail" type="text" placeholder="Gmail / email (e.g. jaroslavaforro@gmail.com)" required>
+<input id="contactPhone" type="tel" placeholder="Phone number (e.g. +421 900 000 000)">
+<button type="submit">Save Contact Info</button>
+</form>
+</section>
+
 <section class="card">
 <h2>Upload Photo</h2>
 <form id="photoForm" onsubmit="addPhoto(event)">
@@ -66,19 +75,10 @@ if (sessionStorage.getItem("admin") !== "true") {
 <h2>Reviews Manager</h2>
 <div id="reviewList"></div>
 </section>
-
-<section class="card">
-<h2>Contact Info</h2>
-<form id="contactForm" onsubmit="saveContactInfo(event)">
-<input id="contactEmail" type="email" placeholder="Email (e.g. info@jaroslavaforro.com)" required>
-<input id="contactPhone" type="tel" placeholder="Phone number (e.g. +421 900 000 000)">
-<button type="submit">Save Contact Info</button>
-</form>
-</section>
 </div>
 </main>
 
-<script src="js/config.js?v=7"></script>
-<script src="js/script.js?v=7"></script>
+<script src="js/config.js?v=8"></script>
+<script src="js/script.js?v=8"></script>
 </body>
 </html>

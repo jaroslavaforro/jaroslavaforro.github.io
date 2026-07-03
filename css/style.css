@@ -113,6 +113,12 @@ select:focus{
     text-decoration:underline;
 }
 
+.download-button,
+.lightbox-download,
+#lightboxDownload{
+    display:none !important;
+}
+
 .button-link{
     display:inline-block;
     background:#c4886b;

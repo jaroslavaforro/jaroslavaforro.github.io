@@ -26,7 +26,7 @@ function escapeHtml(text) {
     .replace(/'/g, "&#39;");
 }
 
-async function parseStorageResponse(response) {
+async function parseStorageResponse(response, path = "") {
   if (response.status === 404) {
     return null;
   }
@@ -34,7 +34,10 @@ async function parseStorageResponse(response) {
   const text = await response.text();
 
   if (!response.ok) {
-    throw new Error("Could not save photo. Try a smaller image.");
+    const fallback = path.includes("contact")
+      ? "Could not save contact info. Check your internet and try again."
+      : "Could not save. Try again.";
+    throw new Error(fallback);
   }
 
   if (!text) {
@@ -69,7 +72,7 @@ async function storageRequest(path, method = "GET", body = null) {
     throw new Error("Could not connect. Check your internet and try again.");
   }
 
-  return parseStorageResponse(response);
+  return parseStorageResponse(response, path);
 }
 
 function dataUrlByteSize(dataUrl) {
@@ -265,7 +268,8 @@ async function saveContactInfo(event) {
     submitButton.textContent = "Saving...";
 
     await saveContact({ email, phone });
-    alert("Contact info updated.");
+    await loadContactForm();
+    alert("Contact info updated. Check the home page Contact section.");
   } catch (error) {
     alert(error.message || "Could not save contact info.");
   } finally {
@@ -548,6 +552,10 @@ async function displayDashboardReviews() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".download-button, .lightbox-download, #lightboxDownload").forEach(function (button) {
+    button.remove();
+  });
+
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.getRegistrations().then(function (registrations) {
       registrations.forEach(function (registration) {
