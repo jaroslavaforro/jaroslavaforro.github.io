@@ -337,6 +337,36 @@ button:hover{
     gap:25px;
 }
 
+.contact-card{
+    grid-column:1 / -1;
+}
+
+.card-note{
+    color:#6b5d50;
+    margin-bottom:16px;
+    font-size:15px;
+}
+
+.contact-preview{
+    background:#f5f0ea;
+    border-radius:12px;
+    padding:14px 16px;
+    margin-bottom:18px;
+    color:#4a3f35;
+    line-height:1.7;
+}
+
+.contact-card label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#4a3f35;
+}
+
+.contact-card input{
+    margin-bottom:16px;
+}
+
 .photo-item,
 .review-item{
     background:#f5f0ea;

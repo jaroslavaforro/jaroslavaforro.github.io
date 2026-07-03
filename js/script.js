@@ -243,12 +243,23 @@ async function displayContact() {
 async function loadContactForm() {
   const emailInput = document.getElementById("contactEmail");
   const phoneInput = document.getElementById("contactPhone");
+  const preview = document.getElementById("contactPreview");
   if (!emailInput || !phoneInput) return;
 
-  await loadContact();
-  const contact = getContact();
-  emailInput.value = contact.email;
-  phoneInput.value = contact.phone;
+  try {
+    await loadContact();
+    const contact = getContact();
+    emailInput.value = contact.email;
+    phoneInput.value = contact.phone;
+
+    if (preview) {
+      preview.innerHTML = renderContactHtml(contact);
+    }
+  } catch (error) {
+    if (preview) {
+      preview.textContent = "Could not load contact info yet.";
+    }
+  }
 }
 
 async function saveContactInfo(event) {
