@@ -429,7 +429,7 @@ async function displayGallery(keepVisibleCount = false) {
   const gallery = document.getElementById("galleryGrid") || document.getElementById("gallery");
   if (!gallery) return;
 
-  const paginate = gallery.id === "galleryGrid" || gallery.id === "gallery";
+  const paginate = gallery.id === "galleryGrid";
 
   if (!keepVisibleCount) {
     galleryVisibleCount = GALLERY_INITIAL_COUNT;
@@ -459,7 +459,7 @@ async function displayGallery(keepVisibleCount = false) {
   `).join("");
 
   if (paginate && visibleCount < photos.length) {
-    renderGalleryMoreButton(gallery, photos.length - visibleCount);
+    renderGalleryMoreButton(gallery);
   }
 }
 
@@ -470,16 +470,13 @@ function removeGalleryMoreButton(gallery) {
   }
 }
 
-function renderGalleryMoreButton(gallery, remainingCount) {
-  const batchCount = Math.min(GALLERY_BATCH_SIZE, remainingCount);
+function renderGalleryMoreButton(gallery) {
   const wrap = document.createElement("div");
   wrap.className = "gallery-more-wrap";
 
   wrap.innerHTML = `
     <button type="button" class="gallery-more-btn" onclick="loadMoreGallery()">
-      <span class="gallery-more-eyebrow">Portfólio</span>
-      <span class="gallery-more-label">Zobraziť viac</span>
-      <span class="gallery-more-count">+${batchCount} ${batchCount === 1 ? "fotografia" : batchCount < 5 ? "fotografie" : "fotografií"}</span>
+      <span class="gallery-more-label">Vidieť viac</span>
     </button>
   `;
 
