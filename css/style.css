@@ -297,26 +297,6 @@ button:hover{
     background:#b56868;
 }
 
-.download-button,
-.lightbox-download{
-    margin-top:12px;
-    padding:8px 16px;
-    font-size:14px;
-    background:#7a9b76;
-}
-
-.download-button:hover,
-.lightbox-download:hover{
-    background:#688a64;
-}
-
-.lightbox-download{
-    position:absolute;
-    bottom:30px;
-    left:50%;
-    transform:translateX(-50%);
-}
-
 /* Dashboard photo rows */
 
 .photo{

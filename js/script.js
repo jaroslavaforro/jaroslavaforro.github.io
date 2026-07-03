@@ -392,7 +392,6 @@ async function displayGallery() {
       <div class="photo-info">
         <h3>${escapeHtml(photo.name)}</h3>
         <p>${escapeHtml(photo.caption)}</p>
-        <button class="download-button" type="button" onclick="downloadPhoto(${index})">Download</button>
       </div>
     </article>
   `).join("");
@@ -416,19 +415,6 @@ function closeImage() {
   const lightbox = document.getElementById("lightbox");
   currentLightboxIndex = null;
   if (lightbox) lightbox.style.display = "none";
-}
-
-function downloadPhoto(index) {
-  const photo = getPhotos()[index];
-  if (!photo?.image) return;
-
-  const safeName = (photo.name || "photo").replace(/[^\w\- ]+/g, "").trim() || "photo";
-  const link = document.createElement("a");
-  link.href = photo.image;
-  link.download = `${safeName}.jpg`;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
 }
 
 async function displayPublicReviews() {
